@@ -2,8 +2,8 @@ from FuzzyLogic import FuzzyLogic
 
 config = {
     'keanggotaan': {
-        'pelayanan': [{'sangat buruk': [1, 20]}, {'buruk': [21, 50]}, {'baik': [51, 70]}, {'sangat baik': [71, 100]}],
-        'makanan': [{'tidak enak': [1, 2]}, {'cukup enak': [3, 5]}, {'enak': [6, 7]}, {'sangat enak': [8, 10]}]
+        'pelayanan': [{'sangat buruk': [1, 20]}, {'buruk': [21, 50]}, {'baik': [51, 80]}, {'sangat baik': [81, 100]}],
+        'makanan': [{'tidak enak': [1, 2]}, {'cukup enak': [3, 4]}, {'enak': [5, 8]}, {'sangat enak': [9, 10]}]
     },
     'rules': {
         ('sangat buruk', 'tidak enak'): 'tidak rekomen',

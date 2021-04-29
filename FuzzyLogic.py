@@ -28,16 +28,15 @@ class FuzzyLogic():
     def Fuzzification(self, anggota, x):
         keAnggotaan = self.GenerateFuzzy()
         for i in keAnggotaan.keys():
-            if i == anggota:
-                for j, data in enumerate(keAnggotaan[i].keys()):
-                    b, c = self.keanggotaan[i][j][data]
-                    a, d = b - 1, c + 1
-                    if b <= x <= c:
-                        keAnggotaan[i][data] = 1
-                    elif a <= x <= b:
-                        keAnggotaan[i][data] = (x-a)/(b-a)
-                    elif c <= x <= d:
-                        keAnggotaan[i][data] = (d-x)/(d-c)
+            for j, data in enumerate(keAnggotaan[anggota].keys()):
+                b, c = self.keanggotaan[anggota][j][data]
+                a, d = b - 1, c + 1
+                if b <= x <= c:
+                    keAnggotaan[anggota][data] = 1
+                elif a <= x <= b:
+                    keAnggotaan[anggota][data] = (x-a)/(b-a)
+                elif c <= x <= d:
+                    keAnggotaan[anggota][data] = (d-x)/(d-c)
         return keAnggotaan[anggota]
 
     def FuzzyDataset(self):
