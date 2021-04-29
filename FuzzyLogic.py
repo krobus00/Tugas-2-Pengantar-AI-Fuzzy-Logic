@@ -45,6 +45,8 @@ class FuzzyLogic():
             fuzzed = {}
             for j in self.keanggotaan:
                 fuzzed[j] = self.Fuzzification(j, self.df[j][i])
+            # {'pelayanan': {'sangat buruk': 0, 'buruk': 0, 'baik': 1, 'sangat baik': 0},
+            # 'makanan': {'tidak enak': 0, 'cukup enak': 0, 'enak': 1, 'sangat enak': 0.0}}
             self.fuzzied.append(fuzzed)
 
     def Inference(self):
@@ -60,8 +62,8 @@ class FuzzyLogic():
                 for j, val in enumerate(fuzzed):
                     if fuzzed[val][key[j]] < minVal:
                         minVal = fuzzed[val][key[j]]
-                if minVal > result[output]:
-                    result[output] = minVal
+                result[output] = max(minVal, result[output])
+            # {'tidak rekomen': 0, 'cukup rekomen': 0, 'rekomen': 1, 'sangat rekomen': 0}
             self.inferenced.append(result)
 
     def Defuzzification(self):
