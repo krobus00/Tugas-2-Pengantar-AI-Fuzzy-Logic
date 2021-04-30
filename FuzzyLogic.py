@@ -20,6 +20,10 @@ class FuzzyLogic():
             for j in data[i]:
                 k = list(j.keys())[0]
                 keanggotaan[i][k] = 0
+        # {
+        # 'pelayanan': {'sangat buruk': 0, 'buruk': 0, 'baik': 0, 'sangat baik': 0},
+        # 'makanan': {'tidak enak': 0, 'cukup enak': 0, 'enak': 0, 'sangat enak': 0}
+        # }
         return keanggotaan
 
     def ReadData(self, loc):
@@ -37,6 +41,8 @@ class FuzzyLogic():
                     keAnggotaan[anggota][data] = (x-a)/(b-a)
                 elif c <= x <= d:
                     keAnggotaan[anggota][data] = (d-x)/(d-c)
+        # {'sangat buruk': 1, 'buruk': 0, 'baik': 0, 'sangat baik': 0}
+        # {'tidak enak': 0, 'cukup enak': 0, 'enak': 1, 'sangat enak': 0.0}
         return keAnggotaan[anggota]
 
     def FuzzyDataset(self):
