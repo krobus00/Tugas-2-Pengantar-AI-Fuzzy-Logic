@@ -31,16 +31,15 @@ class FuzzyLogic():
 
     def Fuzzification(self, anggota, x):
         keAnggotaan = self.GenerateFuzzy()
-        for i in keAnggotaan.keys():
-            for j, data in enumerate(keAnggotaan[anggota].keys()):
-                b, c = self.keanggotaan[anggota][j][data]
-                a, d = b - 1, c + 1
-                if b <= x <= c:
-                    keAnggotaan[anggota][data] = 1
-                elif a <= x <= b:
-                    keAnggotaan[anggota][data] = (x-a)/(b-a)
-                elif c <= x <= d:
-                    keAnggotaan[anggota][data] = (d-x)/(d-c)
+        for j, data in enumerate(keAnggotaan[anggota].keys()):
+            b, c = self.keanggotaan[anggota][j][data]
+            a, d = b - 1, c + 1
+            if b <= x <= c:
+                keAnggotaan[anggota][data] = 1
+            elif a < x < b:
+                keAnggotaan[anggota][data] = (x-a)/(b-a)
+            elif c < x <= d:
+                keAnggotaan[anggota][data] = (d-x)/(d-c)
         # {'sangat buruk': 1, 'buruk': 0, 'baik': 0, 'sangat baik': 0}
         # {'tidak enak': 0, 'cukup enak': 0, 'enak': 1, 'sangat enak': 0.0}
         return keAnggotaan[anggota]
@@ -65,19 +64,18 @@ class FuzzyLogic():
                 output = self.rules[key]
                 minVal = fuzzed[list(fuzzed.keys())[0]][key[0]]
                 for j, val in enumerate(fuzzed):
-                    if fuzzed[val][key[j]] < minVal:
-                        minVal = fuzzed[val][key[j]]
+                    minVal = min(minVal, fuzzed[val][key[j]])
                 result[output] = max(minVal, result[output])
             # {'tidak rekomen': 0, 'cukup rekomen': 0, 'rekomen': 1, 'sangat rekomen': 0}
             self.inferenced.append(result)
 
     def Defuzzification(self):
         for i in self.inferenced:
-            w, z = 0, 0
+            atas, bawah = 0, 0
             for output in self.deffuzy.keys():
-                w += i[output] * self.deffuzy[output]
-                z += i[output]
-            self.results.append(w/z)
+                atas += i[output] * self.deffuzy[output]
+                bawah += i[output]
+            self.results.append(atas/bawah)
         self.df['result'] = self.results
 
     def GetData(self):
@@ -85,4 +83,4 @@ class FuzzyLogic():
 
     def SaveData(self, fileName):
         tmp = self.df.sort_values(by='result', ascending=False)[:10]
-        tmp['id'].to_excel(fileName, engine='openpyxl')
+        tmp['id'].to_excel(fileName, engine='openpyxl', index=False)
