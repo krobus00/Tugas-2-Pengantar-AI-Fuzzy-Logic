@@ -1,12 +1,12 @@
 # Fuzzy Logic
 
-# Install required packages
+# Installing dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-# how to run
+# How to run
 
 ```bash
 python main.py
